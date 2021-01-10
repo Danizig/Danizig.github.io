@@ -1,266 +1,139 @@
-
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title>COLLISIONS</title>
-    <style>
-        html{
-           font-family: "Bauhaus 93";
-           text-align:center;
-        }
-        canvas{
-            border:10px solid gray;
-        }
-    </style>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Hollow Thoughts</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+	<link href="style.css" rel="stylesheet">
 </head>
 <body>
-<h1>Brick Breaker</h1>
-<canvas id="myCanvas" width="480" height="320"></canvas>
-
-<script>
-
-    //VARIABLES
-    var CANVAS = document.getElementById("myCanvas");
-    var CTX = CANVAS.getContext("2d");
-    var BALL_RADIUS = 10; 
-    var COLOR = getRndColor();
-    var PADDLE_HEIGHT = 10;
-    var PADDLE_WIDTH = 85;
-   
-	
-
-    //Ball object
-    const ball = {
-    x : CANVAS.width/2,
-    y : CANVAS.height-30,
-    radius : BALL_RADIUS,
-    speed : 4,
-    dx : 3 * (Math.random() * 2 - 1),
-    dy : -3
-	}
-
-    //Paddle object
-    const paddle = {
-    x : (CANVAS.width - PADDLE_WIDTH)/2,
-    width : PADDLE_WIDTH,
-    height : PADDLE_HEIGHT,
-	}
-    
-   
-    
-    //Brick parameter variables   
-    var BRICK_ROWS = 5;
-    var BRICK_COLUMNS = 5;
-    var BRICK_WIDTH = 75;
-    var BRICK_HEIGHT = 20;
-    var BRICK_PADDING = 10;
-    var BRICK_OFFSET_TOP = 30;
-    var BRICK_OFFSET_LEFT = 30;
-    
- 
-    var BRICKS = [];
-    var SCORE = 0;
-    
-    
-    
-    //Audio may not work on Chrome. Use other browser instead
-    //var hitAudio = new Audio("hitSound.mp3");
-    //var winAudio = new Audio("winnerSound.mp3");
-
-     
-    //Loop through the bricks array columns and
-    //their rows into which brick objects are situated
-    for(var c=0; c<BRICK_COLUMNS; c++) {
-        BRICKS[c] = [];
-        for(var r=0; r<BRICK_ROWS; r++) {
-            BRICKS[c][r] = { x: 0, y: 0, status: 1 };
-        }
-    }
-
-    //Mouse listener
-    document.addEventListener("mousemove", mouseMoveHandler, false);
-
-    
-  
-
-//Function to move the paddle according
-//to the mouse movement
-function mouseMoveHandler(e) {
-  var relativeX = e.clientX - CANVAS.offsetLeft;
-  if(relativeX > 0 && relativeX < CANVAS.width) {
-    paddle.x = relativeX - paddle.width/2;
-  }
-}
 
 
+<div class="bg">
+
+<div class="container-fluid padding">
+	<div class="row welcome text-center">
+		<div class="col-12 dark">
+			<img class="img-responsive col-sm-12" src="img/musta.png">
+		</div>
+		<hr>
+		
+	</div>
+</div>
 
 
-//Detects if collision happens
-//If all bricks are hit = winner
-    function collisionDetection() {
-
-        for(var c=0; c<BRICK_COLUMNS; c++) {
-            for(var r=0; r<BRICK_ROWS; r++) {
-                var b = BRICKS[c][r];
-                if(b.status == 1) {
-                    if(ball.x > b.x && ball.x < b.x + BRICK_WIDTH && 
-                    	ball.y > b.y && ball.y < b.y+BRICK_HEIGHT) {
-
-                    //hitAudio.play();
-                        ball.dy = -ball.dy;
-                        b.status = 0;
-                        SCORE++;
-                        
-                        //As the score increases the paddle shortens
-                        switch (SCORE){
-                        	case 5:
-                        		paddle.width = 75;
-                        		break;
-                        	case 10:
-                        		paddle.width = 65;
-                        		break;
-                        	case 15:
-                        		paddle.width = 55;
-                        		break;
-                        	case 20:
-                        		paddle.width = 45;
-                        		break;
-                        }
-                      
-                        if(SCORE == BRICK_ROWS * BRICK_COLUMNS) {
-                         //winAudio.play();
-                         alert("WINNER");
-                         document.location.reload();
-                         clearInterval(interval);
-          }
-                    }
-                }
-            }
-        }
-    }
-
-    function drawScore() {
-    CTX.font = "ARIAL";
-    CTX.fillStyle = COLOR;
-    CTX.fillText("Score: "+ SCORE, 8, 20);
-	}
-
-    //Ball drawing function
-    function drawBall() {
-        CTX.beginPath();
-        CTX.arc(ball.x, ball.y, ball.radius, 0, Math.PI*2);
-        CTX.closePath();
-        CTX.fillStyle = COLOR;
-        CTX.fill();
-        CTX.stroke();
+<nav class="navbar navbar-expand-md navbar-light">
+    <div class="d-flex w-50 order-0">
         
-    }
-
-    //Paddle drawing funtion
-    function drawPaddle() {
-        CTX.beginPath();
-        CTX.rect(paddle.x, CANVAS.height - paddle.height, paddle.width,
-         paddle.height);
-        CTX.fillStyle = COLOR;
-        CTX.fill();
-        CTX.stroke();
-        CTX.closePath();
-    }
-    
-    //Random color for game each time the page loads
-    function getRndColor() {
-    var r = 255*Math.random()|0,
-    g = 255*Math.random()|0,
-    b = 255*Math.random()|0;
-    return 'rgb(' + r + ',' + g + ',' + b + ')';
-}
-    
-    //Function for drawing a brick and placing it
-    //correctly
-    function drawBricks() {
-        for(var c=0; c<BRICK_COLUMNS; c++) {
-            for(var r=0; r<BRICK_ROWS; r++) {
-                if(BRICKS[c][r].status == 1) {
-                    //Brick coordinates
-                    var brickX = (r*(BRICK_WIDTH + BRICK_PADDING))+
-                    BRICK_OFFSET_LEFT;
-                    var brickY = (c*(BRICK_HEIGHT + BRICK_PADDING))+
-                    BRICK_OFFSET_TOP;
-                    BRICKS[c][r].x = brickX;
-                    BRICKS[c][r].y = brickY;
-                    //Brick drawing
-                    CTX.beginPath();
-                    CTX.rect(brickX, brickY, BRICK_WIDTH, BRICK_HEIGHT);
-                    CTX.fillStyle = COLOR;
-                    CTX.fill();
-                    CTX.stroke();
-                    CTX.closePath();
-                }
-            }
-        }
-    }
-    
-     //The main drawing function
-    function draw() {
-        CTX.clearRect(0, 0, CANVAS.width, CANVAS.height);
-        //Function calls
-        drawBricks();
-        drawBall();
-        drawPaddle();
-        drawScore();
-        collisionDetection();
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsingNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+    <div class="navbar-collapse collapse justify-content-center order-2" id="collapsingNavbar">
+        <ul class="navbar-nav">
+        	<li class="nav-item active">
+                <a class="nav-link" href="index.html">Etusivu</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="musiikki.html">Musiikki</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="galleria.html">Galleria</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="yhteystiedot.html">Yhteydenotot</a>
+            </li>
+        </ul>
+    </div>
+    <span class="navbar-text small text-truncate mt-1 w-50 text-right order-1 order-md-last"></span>
+</nav>
+<br>
 
 
-        //Conditions for keeping the ball in bounds
-        if(ball.x + ball.dx > CANVAS.width - ball.radius || 
-        	ball.x + ball.dx < ball.radius) {
-            ball.dx = -ball.dx;   
-        }
-        if(ball.y + ball.dy < ball.radius) {
-            ball.dy = -ball.dy;
-        }
-        else if(ball.y + ball.dy > CANVAS.height - ball.radius) {
-            if(ball.x > paddle.x && ball.x < paddle.x + paddle.width) {
+<div class="container">
+	<img class="img-responsive col-12" src="img/promo.png">	
+</div>
+
+<div class="container">
+	<div class="row text-center padding">
+		<div class="col-md-12">
+			<br>
+			<br>
+
+			<h2>Kuvaus</h2>
+			<p>Hollow Thoughts on vuonna 2018 perustettu Kuopiolais-Mikkeliläinen alternative metal-bändi,
+jonka juuret ovat Varkaudessa. Vaikutteita yhtye ottaa kaikenlaisesta musiikista jazzista
+melodeathiin ja grungesta progreen mutta kuultavimpia vaikuttajia Bändin tämänhetkiselle
+soundille ovat Alice in Chains, Stone Sour / Slipknot, Audioslave ja System of a Down.</p>
+<br>
+<p>Tarve Hollow Thoughts perustamiseen syntyi jäsenten turhautumisesta aikaisempien projektien
+jäätyä musiikin laadullisesti keskinkertaiselle tasolle. Jokaisella oli mielessään valmiiksi ajatus
+siitä, miltä kuulostaa meidän tekemä musiikki, mutta aiempien yritysten kanssa eivät palaset
+vielä loksahtaneet täydellisesti paikoilleen. Nyt vihdoin tuntuu siltä, että ollaan sillä
+vähimmäistasolla jolta on hyvä lähteä rakentamaan ylöspäin.</p>			
+			<br>
+			<p>Bändin jäsenet pitävät kaikki itseään ennen kaikkea musiikkidiggareina ja tärkeää on se, ettei
+musiikkia kuunnellessa tai tehdessä tuijoteta otsa kurtussa genrerajoja sillä meiningillä että
+saako tästä tykätä vai ei.
+Tämä mentaliteetti antaa meille vapauden tehdä yllättäviäkin asioita oman musiikin kanssa,
+joten kuulijoille on takuulla mielenkiintoisia asioita tarjolla aina kun uutta materiaalia sävelletään.</p>
+<br>
+			
+		</div>
+		
+	</div>
+</div>
+<div class="container">
+	<div class="row text-center padding">
+		<div class="col-md-12">
+			<h2>About us </h2>
+			<p>Hollow thoughts is a Finnish alternative band founded in 2018. The band takes influences from
+a large variety of musical genres: from jazz to melodic death metal and from grunge to
+progressive rock. Few main inspirations that are audible in the bands current sound are for
+example Alice in Chains, Stone Sour / Slipknot, Audioslave and System of a Down.</p>
+<br>
+<p>The need that led to founding Hollow Thoughts arose from frustration of band members as their
+former projects had not reached the level that they’d hope for. Everyone had a vision in their
+heads of what our music should sound like, but with former attempts the pieces didn’t quite fit.
+Now it finally feels like we’re at the level from where we can start building up.</p>			
+			<br>
+			<p>We as the band members like to think ourselves most of all as music fans. Its important for us
+that we don’t stare at certain genre names and argue about whether one can like certain type of
+music or not. This mentality gives us a freedom to do surprising and exiting things with our own
+music so we’ve always got some new angles to throw at our listeners when we’re writing new
+material.</p>
+			
+		</div>
+		
+	</div>
+</div>
+<br>
+<br>
+<br>
+<br>
+
+</div>
 
 
-            /*
-            This algorithm was taken from this tutorial:
-			youtube.com/watch?v=FyZ4_T0GZ1U&t=1257s
-            */
-            var collidePoint = ball.x - (paddle.x + paddle.width/2);
-        	//Normalizing the value
-            collidePoint = collidePoint / (paddle.width/2);
-        
-        	//Calculate the angle by multiplying
-        	//the collidePoint with 60 degrees
-            var angle = collidePoint * Math.PI/3;
-            
-            
-            ball.dx = ball.speed * Math.sin(angle);
-            ball.dy = - ball.speed * Math.cos(angle);
-            
-            
-            }
-            // Ball hits the floor = game over
-            else {
-                alert("GAME OVER");
-                document.location.reload();
-            }
-        }
-        
-        	
-
-
-
-        //Adding velocities
-        
-        ball.x += ball.dx;
-        ball.y += ball.dy;
-        
-    }
-    setInterval(draw, 10);
-</script>
 
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
