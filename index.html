@@ -20,34 +20,21 @@
                 </nav>
             </header>
 
-            <div class="social-header">
-                <ul>
-                    <li><a href="#"><img src="Images/Icon feather-instagram.png" alt="Instagram"></a></li>
-                    <li><a href="#"><img src="Images/Icon awesome-dribbble.png" alt="Dribble"></a></li>
-                    <li><a href="#"><img src="Images/Icon awesome-linkedin.png" alt="LinkedIn"></a></li>
-                </ul>
-            </div>
+            
         </div>
 
         <div class="hero">
             <div class="content">
-                <h1>Intuitive
+                <h1 class="stagger1">Intuitive
                     Innovation Combined with Compassion</h1>
-                    <div class="meet">
+                    <div class="meet stagger1">
                         <p>Hi, I'm Jani</p>
                     </div>
-                    <svg class="scroll" width="54" height="91" viewBox="0 0 54 91">
-                        <g id="Scroll" transform="translate(-155 -721)">
-                          <g id="Rectangle_19" data-name="Rectangle 19" transform="translate(155 721)" fill="none" stroke="#fff3f3" stroke-width="9">
-                            <rect width="54" height="91" rx="27" stroke="none"/>
-                            <rect x="4.5" y="4.5" width="45" height="82" rx="22.5" fill="none"/>
-                          </g>
-                          <g id="Ellipse_5" data-name="Ellipse 5" transform="translate(169 740)" fill="#fff" stroke="#707070" stroke-width="1">
-                            <ellipse cx="13.5" cy="12" rx="13.5" ry="12" stroke="none"/>
-                            <ellipse cx="13.5" cy="12" rx="13" ry="11.5" fill="none"/>
-                          </g>
-                        </g>
-                      </svg>
+                 
+                    
+                      
+                      
+                    
             </div>
             <svg class="hero-design" width="647" height="622" viewBox="0 0 647 622">
                 <g id="Group_1" data-name="Group 1" transform="translate(-981 -190)">
@@ -96,7 +83,7 @@
 
                 </div>
             </div>
-            <img class="right-transition2" src="images/Prototype_studentView (1).png" alt="Featured Project">
+            <img class="right transition2" src="Images/UCD.svg" alt="Featured Project">
         </section>
 
         <section class="skills">
@@ -129,19 +116,7 @@
             </ul>
             </div>
         </section>
-        <section class="portfolio">
-
-            <div class="portfolio-container transition3">
-                <div class="portfolio-left">
-                    <div class="inner">
-                        <p class="subtitle">Featured Project</p>
-                        <p class="featured-title">Simplab Editor</p>
-                        <p class="featured-desc">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed.</p>
-                    </div>
-                </div>
-                <img src="images/editor2.png" alt="Simlab">
-            </div>
-        </section>
+      
 
        
 
@@ -190,6 +165,62 @@
               </svg>
         </div>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/gsap.min.js" integrity="sha512-1dalHDkG9EtcOmCnoCjiwQ/HEB5SDNqw8d4G2MKoNwjiwMNeBAkudsBCmSlMnXdsH8Bm0mOd3tl/6nL5y0bMaQ==" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/ScrollTrigger.min.js" integrity="sha512-QcYm1q7RbnXmwY7HJ0H7938IS0MalTPYqGUF0fIwQgEjMBt2tqjDBt+R5I+ppdwEohjMdHnFU0H+RxmrGQ8qcg==" crossorigin="anonymous"></script>
 
+        <script>
+          gsap.registerPlugin(ScrollTrigger);
+          var tl = gsap.timeline();
+
+          tl.from('.content', {
+            y: '-30%',
+            opacity: 0,
+            duration: 2,
+            ease: Power4.easeOut
+          })
+          tl.from('.stagger1', {
+            opacity: 0,
+            y: -50,
+            stagger: .3,
+            ease: Power4.easeOut,
+            duration: 2
+          }, '-=1.5')
+          tl.from('.hero-design', {
+            opacity: 0,
+            y: 50,
+            ease: Power4.easeOut,
+            duration: 1
+          }, '-=2')
+
+          gsap.from('.square-anim', {
+            stagger: .2,
+            scale: 0.1,
+            duration: 1,
+            ease: Back.easeOut.config(1.7)
+          })
+
+          gsap.from('.transition2', {
+            scrollTrigger: {
+              trigger: '.transition2',
+              start: 'top center'
+            },
+            y: 50,
+            opacity: 0,
+            duration: 1.2,
+            stagger: .3
+          })
+          gsap.from('.transition3', {
+            scrollTrigger: {
+              trigger: '.transition3',
+              start: 'top cemter'
+            },
+            y: 50,
+            opacity: 0,
+            duration: 1.2,
+            stagger: .6
+          })
+
+
+        </script>
     </body>
 </html>
