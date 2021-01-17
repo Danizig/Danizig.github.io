@@ -19,7 +19,8 @@ img{
     width: 100%;
 }
 .nav-container{
-    background: #4F239B;
+    background: rgb(224,45,253);
+background: linear-gradient(0deg, rgba(224,45,253,1) 0%, rgba(93,33,193,1) 100%);
     a{
         color: white;
     }
@@ -51,7 +52,8 @@ header{
 }
 
 .hero {
-   background: #47299B; 
+    background: rgb(94,34,195);
+    background: linear-gradient(0deg, rgba(94,34,195,1) 16%, rgba(224,45,253,1) 100%);
    color: white;
    display: grid;
    text-align: center;
@@ -70,6 +72,7 @@ header{
     width: 30px;
     margin-top: 2em;
 }
+
 section{
     padding: 4em 2em;
     text-align: center;
@@ -114,7 +117,8 @@ section{
     font-weight: 300;
 }
 .skills{
-    background: #DF559E;
+    background: rgb(224,45,253);
+background: linear-gradient(0deg, rgba(224,45,253,1) 0%, rgba(93,33,193,1) 100%);
 }
 .skills-container ul li{
 
@@ -192,46 +196,32 @@ section{
         height: 90vh;
     }
     .nav-container{
-        display: grid;
-        grid-template-columns: 66% auto;
+      
+        
         background: unset;
 
         header{
-            background: #4F239B;
+            background: rgb(224,45,253);
+            background: linear-gradient(0deg, rgba(224,45,253,1) 0%, rgba(93,33,193,1) 100%);
         }
     }
     header{
         padding: 2em 2em 2em 4em;
     }
-    .social-header{
-        padding: 2em 4em 2em 0;
-    }
+    
     section{
         padding: 4em;
     }
-    .social-header{
-        display: block;
-
-        ul{
-            display: flex;
-            justify-content: space-between;
-            width: 7em;
-            float: right;
-
-            img{
-                width: 20px;;
-            }
-        }
-
-    }
+    
     .hero{
         display: grid;
-        grid-template-columns: 66% auto;
+        
         background: unset;
         padding: 0;
 
         .content{
-            background:#47299B;
+            background: rgb(94,34,195);
+            background: linear-gradient(0deg, rgba(94,34,195,1) 16%, rgba(224,45,253,1) 100%);
             padding: 6em 8em 6em 4em;
             text-align: left;
 
@@ -244,12 +234,7 @@ section{
     .meet{
         margin: unset;
     }
-    .hero-design{
-        display: unset;
-        margin-left: -50%;
-        margin-top: 15%;
-        width: 100%;
-    }
+   
 }
 @media only screen and (min-width: 1250px){
     header{
@@ -281,7 +266,34 @@ section{
 }
 
 
+.circle{
+    animation: circleAnim 1s infinite alternate-reverse;
+}
 
+@keyframes circleAnim{
+    from{
+        transform: translate(169px, 740px);
+        z-index: 5;
+    }
+    to{
+        transform: translate(169px, 772px);
+        z-index: 5;
+    }
+}
 
+.arrow{
+    animation: arrowAnim 1s infinite alternate-reverse;
+}
+
+@keyframes arrowAnim{
+    from{
+        transform: translate(169px, 740px);
+        z-index: 5;
+    }
+    to{
+        transform: translate(169px, 772px);
+        z-index: 5;
+    }
+}
 
 
